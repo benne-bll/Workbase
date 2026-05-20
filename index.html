@@ -6194,35 +6194,18 @@ el("sigCancelBtn").onclick=function(){ mc("m-sig"); };
 // PDF OEFFNEN - iOS kompatibel (kein window.open / kein Popup)
 // ============================================================
 function openPDF(htmlContent, title){
-try {
-var pdfHTML = htmlContent.replace(/<style>/, "<style>.tb{display:none!important}@media print{body{padding:0}}");
-var blob = new Blob([pdfHTML], {type: "text/html;charset=utf-8"});
-var url  = URL.createObjectURL(blob);
-var modal = document.getElementById("pdf-modal");
-var frame = document.getElementById("pdf-modal-frame");
-var t     = document.getElementById("pdf-modal-title");
-if(modal && frame){
-frame.src = url;
-if(t) t.textContent = title || "PDF Vorschau";
-modal.classList.add("open");
-haptic("medium");
-// Print Button
-var pb = document.getElementById("pdf-modal-print");
-if(pb) pb.onclick = function(){ frame.contentWindow && frame.contentWindow.print(); };
-// Zurueck Button
-var bb = document.getElementById("pdf-modal-back");
-if(bb) bb.onclick = function(){
-modal.classList.remove("open");
-setTimeout(function(){ frame.src = "about:blank"; URL.revokeObjectURL(url); }, 300);
-};
-} else {
-// Fallback: location.href
-location.href = url;
+try{
+var blob=new Blob([htmlContent],{type:'text/html;charset=utf-8'});
+var url=URL.createObjectURL(blob);
+var a=document.createElement('a');
+a.href=url;
+a.download=(title||'Dokument')+'.html';
+document.body.appendChild(a);
+a.click();
+setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},500);
+}catch(e){toast('Fehler: '+e.message,true);}
 }
-} catch(e){
-toast("PDF Fehler: " + e.message, true);
-}
-}
+
 
 // ============================================================
 // DESIGN HELPERS
