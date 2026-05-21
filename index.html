@@ -3287,7 +3287,7 @@ posHTML+="<div class='ang-pos-header'>"+
 "</div>";
 var posNr=0;
 Object.keys(gruppen).forEach(function(grp){
-posHTML+="<div class='ang-grp-hd'><strong>"+esc(grp)+"</strong></div>";
+posHTML+="<div class='ang-grp-hd' style='font-size:13px;font-weight:800;color:#1e3a5f;text-transform:uppercase;padding:12px 6px 5px;border-top:2px solid #e2e8f0;margin-top:8px'>"+esc(grp)+"</div>";
 gruppen[grp].forEach(function(p){
 var globalIdx=pos.indexOf(p); posNr++;
 var gp=(parseFloat(p.menge)||0)*(parseFloat(p.ep)||0);
@@ -7284,6 +7284,43 @@ el("btnNeu").onclick=function(){showForm(null);};
 el("btnBack").onclick=function(){showList();};
 el("btnCancel").onclick=function(){showList();};
 el("btnPDF").onclick=function(){
+  el("btnZuAngebot").onclick=function(){
+var raeume=AufmassStore.getAll();
+if(!raeume.length){toast("Keine Raeume vorhanden",true);return;}
+var neu={
+id:uid(),
+nummer:genAngNr(),
+status:"entwurf",
+erstellt:Date.now(),
+datum:new Date().toISOString().slice(0,10),
+positionen:[],
+kundeName:"",
+kundeId:"",
+anschrift:"",
+objekt:""
+};
+raeume.forEach(function(r){
+var res=AufmassLogik.berechne(r);
+var m2=parseFloat((res.wand_netto/1000000).toFixed(2));
+neu.positionen.push({
+id:uid(),
+name:"Waende streichen",
+einh:"m2",
+menge:m2,
+ep:0,
+gruppe:r.name||"Raum"
+});
+});
+var alle=DB.ang2();
+alle.push(neu);
+DB.sAng2(alle);
+ANG.current=neu;
+haptic("medium");
+toast("Angebot erstellt");
+navTo("ang-edit");
+renderAngEditor();
+};
+
 openPDF(buildPDF());
 };
 el("btnZuAngebot").onclick=function(){
