@@ -3334,7 +3334,8 @@ return "<div class='ang-kat-item'>"+
 
 
 "<div class='ang-kat-info'>"+esc(item.einh)+" · "+eur(item.preis)+"</div>"+
-"<div class='ang-kat-info'>"+esc(item.text||"")+"</div>"+
+(item.text?"<div class='ki-t' style='font-size:12px;color:var(--mut);margin-top:4px'>"+esc(item.text)+"</div>":"")+ 
+
 
 "</div>"+
 "<button class='ang-kat-add' data-katid='"+esc(item.id)+"'>+</button>"+
