@@ -7113,7 +7113,7 @@ el("rcList").innerHTML=html;
 
 var gb=el("gesamtBox");
 if(raeume.length&&gb){
-show("gesamtBox");show("btnPDF");
+show("gesamtBox");show("btnPDF");show("btnZuAngebot");
 gb.innerHTML="<div style='background:var(--s1);border-radius:var(--r);border:1px solid var(--bdr);padding:14px;margin-top:2px'>" +
 "<div class='sec' style='margin-top:0;color:var(--acc)'>Gesamtergebnis</div>" +
 "<div class='res-grid-3'>"+
@@ -7121,7 +7121,8 @@ tile("Netto ges.",fm(totN),"m\u00B2","rt-grn")+
 tile("Brutto ges.",fm(totB),"m\u00B2","rt-acc")+
 tile("Raeume",raeume.length,"Stk","rt-mut")+
 "</div></div>";
-} else {if(gb)hide("gesamtBox");hide("btnPDF");}
+} else {if(gb)hide("gesamtBox");hide("btnPDF");hide("btnZuAngebot");}
+
 
 el("rcList").querySelectorAll("[data-edit]").forEach(function(b){
 b.onclick=function(e){e.stopPropagation();showForm(this.dataset.edit);};
