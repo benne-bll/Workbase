@@ -7286,6 +7286,43 @@ el("btnCancel").onclick=function(){showList();};
 el("btnPDF").onclick=function(){
 openPDF(buildPDF());
 };
+el("btnZuAngebot").onclick=function(){
+var raeume=AufmassStore.getAll();
+if(!raeume.length){toast("Keine Raeume vorhanden",true);return;}
+var neu={
+id:uid(),
+nummer:genAngNr(),
+status:"entwurf",
+erstellt:Date.now(),
+datum:new Date().toISOString().slice(0,10),
+positionen:[],
+kundeName:"",
+kundeId:"",
+anschrift:"",
+objekt:""
+};
+raeume.forEach(function(r){
+var res=AufmassLogik.berechne(r);
+var m2=parseFloat((res.wand_netto/1000000).toFixed(2));
+neu.positionen.push({
+id:uid(),
+name:r.name||"Raum",
+einh:"m2",
+menge:m2,
+ep:0,
+gruppe:r.name||"Raum"
+});
+});
+var alle=DB.ang2();
+alle.push(neu);
+DB.sAng2(alle);
+ANG.current=neu;
+haptic("medium");
+toast("Angebot erstellt");
+navTo("ang-edit");
+renderAngEditor();
+};
+
 /* Speichern */
 el("btnSave").onclick=function(){
 var r=buildTmpRaum();
