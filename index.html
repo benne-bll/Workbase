@@ -3330,7 +3330,9 @@ return "<button class='ang-kat-tab"+(ANG.katFilter===k?" ang-kat-tab-on":"")+"' 
 var katItems=katFilt.slice(0,60).map(function(item){
 return "<div class='ang-kat-item'>"+
 "<div style='flex:1;min-width:0'>"+
-"<div class='ang-kat-nm'>"+esc(item.name)+"</div>"+
+"<div "<div class='ang-kat-nm'>"+esc(item.name)+"</div>"+
+"<div style='font-size:12px;color:var(--mut);margin-top:2px'>"+esc(item.text||"")+"</div>"+
+
 "<div class='ang-kat-info'>"+esc(item.einh)+" · "+eur(item.preis)+"</div>"+
 "</div>"+
 "<button class='ang-kat-add' data-katid='"+esc(item.id)+"'>+</button>"+
