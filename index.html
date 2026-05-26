@@ -7314,9 +7314,18 @@ objekt:""
 raeume.forEach(function(r){
 var res=AufmassLogik.berechne(r);
 var m2=parseFloat((res.wand_netto/1000000).toFixed(2));
-neu.aufmassGruppen=neu.aufmassGruppen||{};
-neu.aufmassGruppen[r.name||"Raum"]=m2;
+neu.positionen.push({
+id:uid(),
+name:"Leistung waehlen",
+einh:"m2",
+menge:m2,
+ep:0,
+gruppe:r.name||"Raum",
+text:"",
+aufmassM2:m2
 });
+});
+
 
 var alle=DB.ang2();
 alle.push(neu);
