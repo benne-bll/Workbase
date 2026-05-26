@@ -131,4 +131,13 @@ body {
 
 .fab.show { display: flex; align-items: center; justify-content: center; }
 
-/* Weitere Styles folgen in späteren Versionen */
+/* Weitere Styles folgen in späteren Versionen */ 
+/* === AUFMASS-PRO CSS === */
+#s-am { color-scheme: dark; }
+
+.ph { position: sticky; top: 0; z-index: 30; background: var(--bg); padding: 16px 16px 12px; border-bottom: 1px solid var(--bdr); display: flex; align-items: center; justify-content: space-between; }
+
+.steps, .tabs, .card, .row2, .row3, .fg, .btn, .res-grid, .abz-card, .foto-slot, .rc, .row-item, .fas-seite, .ibox, .wbox { 
+    /* Hier kommen die Original-Styles aus deiner alten Datei */
+    /* Ich füge sie schrittweise ein */
+}
