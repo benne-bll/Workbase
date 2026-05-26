@@ -3273,9 +3273,11 @@ var gruppen={};
 pos.forEach(function(p){ var g=p.gruppe||"Allgemein"; if(!gruppen[g])gruppen[g]=[]; gruppen[g].push(p); });
 
 var posHTML="";
-if(pos.length===0){
+var gruppen2=Object.keys(a.aufmassGruppen||{});
+if(pos.length===0 && gruppen2.length===0){
 posHTML="<div class='ang-pos-empty'>Noch keine Positionen. Leistungen aus dem Katalog unten auswaehlen.</div>";
 } else {
+
 // Tabellen-Header
 posHTML+="<div class='ang-pos-header'>"+
 "<span class='ang-ph-pos'>Pos.</span>"+
