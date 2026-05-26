@@ -1,11 +1,6 @@
 // ======================
-// WORKBASE - MAIN.JS (Verbindung aller Module)
+// MAIN.JS - Navigation & Core
 // ======================
-
-import './db.js';
-import './ui.js';
-import './dashboard.js';
-import './aufmass.js';
 
 let currentScreen = 'd';
 
@@ -21,15 +16,45 @@ function navTo(screen) {
     }
     target.classList.add('act');
 
+    // Highlight active button
     document.querySelectorAll('.nb').forEach(btn => btn.classList.remove('on'));
     const activeBtn = document.querySelector(`.nb[data-s="${screen}"]`);
     if (activeBtn) activeBtn.classList.add('on');
 
     currentScreen = screen;
 
-    // Render entsprechendes Modul
-    if (screen === 'd' && typeof renderDashboard === 'function') renderDashboard();
-    if (screen === 'am' && typeof initAufmass === 'function') initAufmass();
+    // Render content
+    if (screen === 'd') renderDashboard();
+    if (screen === 'am') renderAufmassScreen();
+}
+
+function renderDashboard() {
+    const s = document.getElementById('s-d');
+    s.innerHTML = `
+        <div style="padding:20px;text-align:center">
+            <h1 style="font-size:32px">👋 Willkommen</h1>
+            <p style="color:#94a3b8;margin-top:8px">Workbase läuft modular</p>
+            <div style="margin-top:40px" class="card">
+                <h3>Dashboard</h3>
+                <p>Hier kommen später deine heutigen Aufgaben hin.</p>
+            </div>
+        </div>
+    `;
+}
+
+function renderAufmassScreen() {
+    const s = document.getElementById('s-am');
+    s.innerHTML = `
+        <div style="padding:20px">
+            <h1>📐 Aufmass Pro</h1>
+            <div class="card">
+                <p>Dein volles Aufmass-Modul wird hier wieder eingebaut.</p>
+                <button onclick="alert('Neuen Raum erfassen - kommt als Nächstes')" style="margin-top:15px;width:100%;padding:16px;background:#22c55e;color:white;border:none;border-radius:12px">
+                    + Neuen Raum erfassen
+                </button>
+            </div>
+        </div>
+    `;
 }
 
 function initNav() {
@@ -47,10 +72,9 @@ function initNav() {
     });
 }
 
-function initApp() {
+// Start
+document.addEventListener('DOMContentLoaded', () => {
     initNav();
     navTo('d');
-    console.log('%c✅ Workbase modulare Version gestartet', 'color:#38bdf8; font-weight:bold');
-}
-
-document.addEventListener('DOMContentLoaded', initApp);
+    console.log('%c✅ Navigation funktioniert jetzt', 'color:#38bdf8;font-weight:bold');
+});
