@@ -1,30 +1,28 @@
 // ======================
-// WORKBASE - DASHBOARD.JS
+// DASHBOARD
 // ======================
 
-function renderDashboard() {
+function renderSimpleDashboard() {
     const screen = document.getElementById('s-d');
-    if (!screen) {
-        const newScreen = document.createElement('div');
-        newScreen.id = 's-d';
-        newScreen.className = 'scr act';
-        newScreen.innerHTML = `
-            <div class="ph">
-                <h1>Willkommen zurück 👋</h1>
-                <p>Heute • ${new Date().toLocaleDateString('de-DE')}</p>
+    if (!screen) return;
+
+    screen.innerHTML = `
+        <div style="padding:20px 16px;">
+            <h1 style="font-size:28px; margin-bottom:4px;">👋 Guten Tag!</h1>
+            <p style="color:#94a3b8;">Heute ist ${new Date().toLocaleDateString('de-DE', {weekday:'long'})}</p>
+            
+            <div class="card" style="margin-top:30px;">
+                <h3>📊 Schnellübersicht</h3>
+                <p style="color:var(--mut);margin:12px 0;">Noch keine Daten für heute</p>
             </div>
-            <div style="padding:16px;">
-                <div class="card">
-                    <h3>Keine Projekte heute</h3>
-                    <p style="color:var(--mut);margin-top:8px;">Du hast noch keine Termine oder Aufgaben.</p>
-                </div>
-                
-                <button class="btn bp" onclick="neuenRaum()">Neuen Raum aufmessen</button>
-            </div>
-        `;
-        document.getElementById('screens').appendChild(newScreen);
-    }
+
+            <button onclick="alert('Aufmass Modul wird gestartet...')" 
+                    style="margin-top:20px; background:#38bdf8; color:#0f172a; padding:16px; border:none; border-radius:12px; font-size:17px; width:100%;">
+                📐 Neuen Raum aufmessen
+            </button>
+        </div>
+    `;
 }
 
 // Export
-window.renderDashboard = renderDashboard;
+window.renderSimpleDashboard = renderSimpleDashboard;
