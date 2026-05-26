@@ -1,20 +1,49 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Workbase</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root { --bg:#0f172a; --card:#1e293b; --acc:#38bdf8; --txt:#f1f5f9; --mut:#94a3b8; }
+        body { margin:0; font-family:-apple-system,sans-serif; background:var(--bg); color:var(--txt); height:100vh; overflow:hidden; }
+        #app { height:100%; display:flex; flex-direction:column; }
+        #screens { flex:1; position:relative; }
+        .scr { position:absolute; inset:0; overflow-y:auto; display:none; padding:20px; }
+        .scr.act { display:block; }
+        .nav { display:flex; background:#060e1c; border-top:1px solid #334155; }
+        .nb { flex:1; padding:10px 5px; text-align:center; color:var(--mut); font-size:12px; }
+        .nb.on { color:var(--acc); }
+        .card { background:var(--card); border-radius:14px; padding:20px; margin-bottom:16px; }
+        button { background:var(--acc); color:#0f172a; border:none; padding:16px; border-radius:12px; font-size:17px; font-weight:600; width:100%; margin-top:10px; }
+    </style>
 </head>
 <body>
     <div id="app">
-        <div id="screens"></div>
-        <nav id="nav"></nav>
-        <button class="fab" id="fabBtn">+</button>
+        <div id="screens">
+            <div id="s-d" class="scr act">
+                <h1 style="text-align:center;margin-top:40px;">👋 Willkommen bei Workbase</h1>
+                <div class="card">
+                    <h2>Die App läuft!</h2>
+                    <p>Modulare Umstellung in Arbeit.</p>
+                </div>
+                <button onclick="alert('Aufmass-Modul wird vorbereitet...')">📐 Aufmass starten</button>
+            </div>
+        </div>
+        
+        <div class="nav">
+            <button class="nb on" onclick="switchScreen('d')">🏠 Heute</button>
+            <button class="nb" onclick="switchScreen('am')">📐 Aufmass</button>
+            <button class="nb" onclick="alert('Kunden kommen bald')">👥 Kunden</button>
+        </div>
     </div>
 
-    <script type="module" src="js/main.js"></script>
+    <script>
+        function switchScreen(s) {
+            document.querySelectorAll('.scr').forEach(el => el.classList.remove('act'));
+            document.getElementById('s-' + s).classList.add('act');
+        }
+        console.log("✅ Workbase Testversion läuft");
+    </script>
 </body>
 </html>
