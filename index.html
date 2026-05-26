@@ -3292,19 +3292,23 @@ gruppen[grp].forEach(function(p){
 var globalIdx=pos.indexOf(p); posNr++;
 var gp=(parseFloat(p.menge)||0)*(parseFloat(p.ep)||0);
 posHTML+=
-"<div class='ang-pos-row' data-posidx='"+globalIdx+"'>"+
-"<span class='ang-pos-nr'>"+posNr+"</span>"+
-"<div class='ang-pos-bez'>"+
-"<div class='ang-pos-nm'>"+esc(p.name)+"</div>"+
-"<div class='ang-pos-sub'>"+esc(p.einh)+"</div>"+
-"</div>"+
-"<input type='number' class='ang-pos-menge ang-input-sm' value='"+(p.menge||1)+"' min='0' step='0.01' data-posidx='"+globalIdx+"'>"+
-"<input type='number' class='ang-pos-ep ang-input-sm' value='"+(p.ep||0)+"' min='0' step='0.01' data-posidx='"+globalIdx+"'>"+
-"<div class='ang-pos-gp'>"+eur(gp)+"</div>"+
-"<button class='ang-pos-del' data-delpos='"+globalIdx+"'>"+
-"<svg width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg>"+
+"<div class='ki' data-posidx='"+globalIdx+"' style='margin-bottom:8px'>"+
+"<div class='ki-h'>"+
+"<div><div class='ki-n'>"+esc(p.name)+"</div><div class='ki-e'>"+esc(p.einh)+"</div></div>"+
+"<button class='ang-pos-del' data-delpos='"+globalIdx+"' style='background:none;border:none;cursor:pointer;color:#ef4444'>"+
+"<svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg>"+
 "</button>"+
+"</div>"+
+(p.text?"<div class='ki-t'>"+esc(p.text)+"</div>":"")+
+"<div style='display:flex;align-items:center;gap:8px;margin-top:8px'>"+
+"<span style='font-size:12px;color:var(--mut)'>Menge</span>"+
+"<input type='number' class='ang-pos-menge ang-input-sm' value='"+(p.menge||1)+"' min='0' step='0.01' data-posidx='"+globalIdx+"'>"+
+"<span style='font-size:12px;color:var(--mut)'>EP</span>"+
+"<input type='number' class='ang-pos-ep ang-input-sm' value='"+(p.ep||0)+"' min='0' step='0.01' data-posidx='"+globalIdx+"'>"+
+"<div style='margin-left:auto;font-weight:700;font-size:14px;color:var(--txt)'>"+eur(gp)+"</div>"+
+"</div>"+
 "</div>";
+
 });
 });
 }
