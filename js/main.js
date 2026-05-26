@@ -1,11 +1,11 @@
 // ======================
-// WORKBASE - MAIN.JS (aktualisiert)
+// WORKBASE - MAIN.JS (SIMPLE VERSION)
 // ======================
 
-import './db.js';
-import './ui.js';
-import './dashboard.js';
-import './aufmass.js';
+// Hilfsfunktionen
+function toast(msg) {
+    alert(msg); // Vorübergehend als Alert
+}
 
 let currentScreen = 'd';
 
@@ -21,25 +21,38 @@ function navTo(screen) {
     }
     target.classList.add('act');
     
-    // Aktiven Button hervorheben
-    document.querySelectorAll('.nb').forEach(btn => btn.classList.remove('on'));
-    const activeBtn = document.querySelector(`.nb[data-s="${screen}"]`);
-    if (activeBtn) activeBtn.classList.add('on');
+    document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
+    const btn = document.querySelector(`.nb[data-s="${screen}"]`);
+    if (btn) btn.classList.add('on');
 
     currentScreen = screen;
+    
+    if (screen === 'd') renderSimpleDashboard();
+}
 
-    if (screen === 'd') renderDashboard();
-    if (screen === 'am') initAufmass();
+function renderSimpleDashboard() {
+    const screen = document.getElementById('s-d');
+    screen.innerHTML = `
+        <div style="padding:20px;text-align:center">
+            <h1 style="font-size:28px;margin-bottom:8px">👋 Willkommen bei Workbase</h1>
+            <p style="color:#94a3b8">Modulare Version läuft!</p>
+            
+            <div style="margin-top:40px">
+                <button onclick="alert('Aufmass gestartet!')" 
+                        style="background:#38bdf8;color:black;padding:16px 32px;border:none;border-radius:12px;font-size:18px">
+                    📐 Aufmass starten
+                </button>
+            </div>
+        </div>
+    `;
 }
 
 function initNav() {
     const nav = document.getElementById('nav');
     nav.innerHTML = `
         <button class="nb on" data-s="d">🏠 Heute</button>
-        <button class="nb" data-s="k">👥 Kunden</button>
-        <button class="nb" data-s="p">📂 Projekte</button>
-        <button class="nb" data-s="r">💰 Abrechnung</button>
         <button class="nb" data-s="am">📐 Aufmass</button>
+        <button class="nb" data-s="k">👥 Kunden</button>
     `;
 
     nav.querySelectorAll('.nb').forEach(btn => {
@@ -47,11 +60,9 @@ function initNav() {
     });
 }
 
-function initApp() {
-    initNav();
-    navTo('d');           // Startet mit Dashboard
-    console.log('%c✅ Workbase modulare Version gestartet', 'color:#38bdf8;font-weight:bold');
-}
-
 // Start
-document.addEventListener('DOMContentLoaded', initApp);
+document.addEventListener('DOMContentLoaded', () => {
+    initNav();
+    navTo('d');
+    console.log('✅ Workbase Simple Version läuft');
+});
