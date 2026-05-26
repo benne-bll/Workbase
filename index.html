@@ -5,45 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Workbase</title>
     <style>
-        :root { --bg:#0f172a; --card:#1e293b; --acc:#38bdf8; --txt:#f1f5f9; --mut:#94a3b8; }
-        body { margin:0; font-family:-apple-system,sans-serif; background:var(--bg); color:var(--txt); height:100vh; overflow:hidden; }
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --acc: #38bdf8;
+            --grn: #22c55e;
+            --txt: #f1f5f9;
+            --mut: #94a3b8;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin:0; padding:0; font-family:-apple-system, sans-serif;
+            background:var(--bg); color:var(--txt); height:100vh; overflow:hidden;
+        }
         #app { height:100%; display:flex; flex-direction:column; }
-        #screens { flex:1; position:relative; }
-        .scr { position:absolute; inset:0; overflow-y:auto; display:none; padding:20px; }
+        #screens { flex:1; position:relative; overflow:hidden; }
+        .scr { position:absolute; inset:0; overflow-y:auto; display:none; padding:16px; }
         .scr.act { display:block; }
-        .nav { display:flex; background:#060e1c; border-top:1px solid #334155; }
-        .nb { flex:1; padding:10px 5px; text-align:center; color:var(--mut); font-size:12px; }
+        .nav {
+            display:flex; background:#060e1c; border-top:1px solid #334155;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .nb {
+            flex:1; padding:8px 4px; text-align:center; color:var(--mut); font-size:11px;
+        }
         .nb.on { color:var(--acc); }
-        .card { background:var(--card); border-radius:14px; padding:20px; margin-bottom:16px; }
-        button { background:var(--acc); color:#0f172a; border:none; padding:16px; border-radius:12px; font-size:17px; font-weight:600; width:100%; margin-top:10px; }
+        .card {
+            background:var(--card); border-radius:14px; padding:18px; margin-bottom:16px;
+        }
+        button {
+            background:var(--acc); color:#0f172a; border:none; padding:16px; border-radius:12px;
+            font-size:17px; font-weight:600; width:100%; margin-top:8px;
+        }
     </style>
 </head>
 <body>
     <div id="app">
         <div id="screens">
+            <!-- Dashboard -->
             <div id="s-d" class="scr act">
-                <h1 style="text-align:center;margin-top:40px;">👋 Willkommen bei Workbase</h1>
+                <h1 style="text-align:center; margin:40px 0 10px;">👋 Hallo!</h1>
+                <p style="text-align:center; color:var(--mut);">Willkommen in Workbase</p>
+                
                 <div class="card">
-                    <h2>Die App läuft!</h2>
-                    <p>Modulare Umstellung in Arbeit.</p>
+                    <h3>🚀 Modulare Version</h3>
+                    <p>Die App läuft jetzt strukturiert und erweiterbar.</p>
                 </div>
-                <button onclick="alert('Aufmass-Modul wird vorbereitet...')">📐 Aufmass starten</button>
+                
+                <button onclick="navTo('am')">📐 Aufmass starten</button>
+            </div>
+
+            <!-- Aufmass -->
+            <div id="s-am" class="scr">
+                <h1>📐 Aufmass Pro</h1>
+                <div class="card">
+                    <p>Hier kommt das vollständige Aufmass-Modul hin (Räume, Formeln, VOB, Fotos...)</p>
+                    <button onclick="alert('Neuen Raum erfassen - wird als Nächstes vollständig eingebaut')">+ Neuen Raum erfassen</button>
+                </div>
             </div>
         </div>
-        
-        <div class="nav">
-            <button class="nb on" onclick="switchScreen('d')">🏠 Heute</button>
-            <button class="nb" onclick="switchScreen('am')">📐 Aufmass</button>
-            <button class="nb" onclick="alert('Kunden kommen bald')">👥 Kunden</button>
-        </div>
+
+        <div class="nav" id="nav"></div>
     </div>
 
     <script>
-        function switchScreen(s) {
-            document.querySelectorAll('.scr').forEach(el => el.classList.remove('act'));
-            document.getElementById('s-' + s).classList.add('act');
+        function navTo(screen) {
+            document.querySelectorAll('.scr').forEach(s => s.classList.remove('act'));
+            document.getElementById('s-' + screen).classList.add('act');
         }
-        console.log("✅ Workbase Testversion läuft");
+
+        // Navigation aufbauen
+        function initNav() {
+            document.getElementById('nav').innerHTML = `
+                <button class="nb on" onclick="navTo('d')">🏠 Heute</button>
+                <button class="nb" onclick="navTo('k')">👥 Kunden</button>
+                <button class="nb" onclick="navTo('p')">📁 Projekte</button>
+                <button class="nb" onclick="navTo('r')">💰 Abrechnung</button>
+                <button class="nb" onclick="navTo('am')">📐 Aufmass</button>
+            `;
+        }
+
+        // Start
+        window.onload = initNav;
     </script>
 </body>
 </html>
