@@ -1,14 +1,13 @@
 // ======================
-// WORKBASE - MAIN.JS (SIMPLE VERSION)
+// WORKBASE - MAIN.JS (Fix Version)
 // ======================
 
-// Hilfsfunktionen
+// Einfache Hilfsfunktionen
 function toast(msg) {
-    alert(msg); // Vorübergehend als Alert
+    alert(msg);
 }
 
-let currentScreen = 'd';
-
+// Navigation
 function navTo(screen) {
     document.querySelectorAll('.scr').forEach(s => s.classList.remove('act'));
     
@@ -20,49 +19,56 @@ function navTo(screen) {
         document.getElementById('screens').appendChild(target);
     }
     target.classList.add('act');
-    
-    document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
-    const btn = document.querySelector(`.nb[data-s="${screen}"]`);
-    if (btn) btn.classList.add('on');
 
-    currentScreen = screen;
-    
-    if (screen === 'd') renderSimpleDashboard();
+    // Navigation Buttons
+    document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
+    const activeBtn = document.querySelector(`.nb[data-s="${screen}"]`);
+    if (activeBtn) activeBtn.classList.add('on');
+
+    // Render Inhalt
+    if (screen === 'd') renderDashboard();
 }
 
-function renderSimpleDashboard() {
+// Dashboard
+function renderDashboard() {
     const screen = document.getElementById('s-d');
     screen.innerHTML = `
-        <div style="padding:20px;text-align:center">
-            <h1 style="font-size:28px;margin-bottom:8px">👋 Willkommen bei Workbase</h1>
-            <p style="color:#94a3b8">Modulare Version läuft!</p>
+        <div style="padding: 30px 20px; text-align: center;">
+            <h1 style="font-size: 32px; margin-bottom: 8px;">👋 Hallo!</h1>
+            <p style="color: #94a3b8; font-size: 18px;">Willkommen in Workbase</p>
             
-            <div style="margin-top:40px">
-                <button onclick="alert('Aufmass gestartet!')" 
-                        style="background:#38bdf8;color:black;padding:16px 32px;border:none;border-radius:12px;font-size:18px">
-                    📐 Aufmass starten
-                </button>
+            <div style="margin-top: 50px; background: #1e293b; border-radius: 16px; padding: 24px;">
+                <p style="color: #38bdf8; font-size: 17px; font-weight: 600;">Modulare Version</p>
+                <p style="color: #94a3b8; margin-top: 12px;">Die App läuft jetzt strukturiert.</p>
             </div>
+
+            <button onclick="alert('Super! Das Aufmass-Modul kommt als Nächstes.')" 
+                    style="margin-top: 40px; background: #38bdf8; color: #0f172a; padding: 18px 32px; border: none; border-radius: 12px; font-size: 18px; font-weight: 600; width: 100%;">
+                📐 Aufmass starten
+            </button>
         </div>
     `;
 }
 
+// Navigation initialisieren
 function initNav() {
-    const nav = document.getElementById('nav');
-    nav.innerHTML = `
+    const navHTML = `
         <button class="nb on" data-s="d">🏠 Heute</button>
-        <button class="nb" data-s="am">📐 Aufmass</button>
         <button class="nb" data-s="k">👥 Kunden</button>
+        <button class="nb" data-s="p">📁 Projekte</button>
+        <button class="nb" data-s="r">💰 Abrechnung</button>
+        <button class="nb" data-s="am">📐 Aufmass</button>
     `;
+    document.getElementById('nav').innerHTML = navHTML;
 
-    nav.querySelectorAll('.nb').forEach(btn => {
+    document.querySelectorAll('.nb').forEach(btn => {
         btn.addEventListener('click', () => navTo(btn.dataset.s));
     });
 }
 
-// Start
+// App Start
 document.addEventListener('DOMContentLoaded', () => {
     initNav();
     navTo('d');
-    console.log('✅ Workbase Simple Version läuft');
+    console.log('✅ Workbase läuft jetzt!');
 });
