@@ -3881,7 +3881,7 @@ var item=DB.katalog().find(function(x){ return x.id===kid; });
 if(!item){ toast("Nicht gefunden",true); return; }
 if(!ANG.current.positionen) ANG.current.positionen=[];
 var grpMap={maler:"Malerarbeiten",trockenbau:"Trockenbauarbeiten",putz:"Putz und Stuck",sonst:"Sonstiges"};
-ANG.current.positionen.push({id:uid(),name:item.name,einh:item.einh,menge:1,ep:item.preis,gruppe:grpMap[item.kat]||"Allgemein",katId:item.id});
+ANG.current.positionen.push({id:uid(),name:item.name,einh:item.einh,menge:1,ep:item.preis,gruppe:grpMap[item.kat]||"Allgemein",katId:item.id,text:item.text||""});
 toast(item.name+" hinzugefuegt");
 renderAngEditor();
 setTimeout(function(){
