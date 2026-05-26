@@ -3,64 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Workbase</title>
     <style>
-        :root {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --acc: #38bdf8;
-            --grn: #22c55e;
-            --txt: #f1f5f9;
-            --mut: #94a3b8;
-        }
-        * { box-sizing: border-box; }
-        body {
-            margin:0; padding:0; font-family:-apple-system, sans-serif;
-            background:var(--bg); color:var(--txt); height:100vh; overflow:hidden;
-        }
+        /* Dein Original-Design (stark verkürzt aber funktional) */
+        :root { --bg:#0f172a; --card:#1e293b; --acc:#38bdf8; --grn:#22c55e; --txt:#f1f5f9; --mut:#94a3b8; --bdr:#334155; }
+        * { box-sizing:border-box; margin:0; padding:0; }
+        body { font-family:-apple-system,sans-serif; background:var(--bg); color:var(--txt); height:100vh; overflow:hidden; }
         #app { height:100%; display:flex; flex-direction:column; }
-        #screens { flex:1; position:relative; overflow:hidden; }
+        #screens { flex:1; position:relative; }
         .scr { position:absolute; inset:0; overflow-y:auto; display:none; padding:16px; }
         .scr.act { display:block; }
-        .nav {
-            display:flex; background:#060e1c; border-top:1px solid #334155;
-            padding-bottom: env(safe-area-inset-bottom);
-        }
-        .nb {
-            flex:1; padding:8px 4px; text-align:center; color:var(--mut); font-size:11px;
-        }
+        .nav { display:flex; background:#060e1c; border-top:1px solid var(--bdr); }
+        .nb { flex:1; padding:10px 4px; text-align:center; color:var(--mut); font-size:11px; }
         .nb.on { color:var(--acc); }
-        .card {
-            background:var(--card); border-radius:14px; padding:18px; margin-bottom:16px;
-        }
-        button {
-            background:var(--acc); color:#0f172a; border:none; padding:16px; border-radius:12px;
-            font-size:17px; font-weight:600; width:100%; margin-top:8px;
-        }
+        .card { background:var(--card); border-radius:14px; padding:16px; margin-bottom:12px; border:1px solid var(--bdr); }
+        button { background:var(--acc); color:#0f172a; border:none; padding:14px; border-radius:12px; font-size:16px; font-weight:600; width:100%; margin:8px 0; }
     </style>
 </head>
 <body>
     <div id="app">
         <div id="screens">
-            <!-- Dashboard -->
             <div id="s-d" class="scr act">
-                <h1 style="text-align:center; margin:40px 0 10px;">👋 Hallo!</h1>
-                <p style="text-align:center; color:var(--mut);">Willkommen in Workbase</p>
-                
+                <h1 style="text-align:center;margin:40px 0 20px;">👋 Willkommen bei Workbase</h1>
                 <div class="card">
-                    <h3>🚀 Modulare Version</h3>
-                    <p>Die App läuft jetzt strukturiert und erweiterbar.</p>
+                    <h3>✅ Modulare Basis läuft</h3>
+                    <p>Alle Funktionen werden schrittweise wieder eingebaut.</p>
                 </div>
-                
-                <button onclick="navTo('am')">📐 Aufmass starten</button>
+                <button onclick="navTo('am')">📐 Aufmass öffnen</button>
             </div>
 
-            <!-- Aufmass -->
             <div id="s-am" class="scr">
                 <h1>📐 Aufmass Pro</h1>
                 <div class="card">
-                    <p>Hier kommt das vollständige Aufmass-Modul hin (Räume, Formeln, VOB, Fotos...)</p>
-                    <button onclick="alert('Neuen Raum erfassen - wird als Nächstes vollständig eingebaut')">+ Neuen Raum erfassen</button>
+                    <p>Hier kommt dein volles Aufmass-Modul hin (Räume, Formeln, VOB, Fotos etc.)</p>
+                    <button onclick="alert('Neuen Raum erfassen - wird vollständig wieder eingebaut')">+ Neuen Raum erfassen</button>
                 </div>
             </div>
         </div>
@@ -74,7 +51,6 @@
             document.getElementById('s-' + screen).classList.add('act');
         }
 
-        // Navigation aufbauen
         function initNav() {
             document.getElementById('nav').innerHTML = `
                 <button class="nb on" onclick="navTo('d')">🏠 Heute</button>
@@ -85,8 +61,10 @@
             `;
         }
 
-        // Start
-        window.onload = initNav;
+        window.onload = () => {
+            initNav();
+            console.log('%cWorkbase läuft wieder', 'color:#38bdf8');
+        };
     </script>
 </body>
 </html>
