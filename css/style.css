@@ -1,0 +1,134 @@
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --c2: #263249;
+  --acc: #38bdf8;
+  --grn: #22c55e;
+  --red: #ef4444;
+  --yel: #f59e0b;
+  --txt: #f1f5f9;
+  --mut: #94a3b8;
+  --bdr: #334155;
+  --nav-h: 60px;
+  --radius: 14px;
+  --shadow: 0 4px 20px rgba(56,189,248,0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--txt);
+  height: 100vh;
+  overflow: hidden;
+  font-size: 16px;
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#screens {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.scr {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+}
+
+.scr.act {
+  display: block;
+}
+
+/* Cards & Basics */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--bdr);
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  transition: all 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+
+.bp { background: var(--acc); color: #0f172a; }
+.bs { background: var(--grn); color: #fff; }
+.bg2 { background: var(--c2); color: var(--txt); }
+
+/* Bottom Nav */
+#nav {
+  height: calc(var(--nav-h) + env(safe-area-inset-bottom));
+  background: #060e1c;
+  border-top: 1px solid var(--bdr);
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nb {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--mut);
+  font-size: 10px;
+  gap: 4px;
+}
+
+.nb.on {
+  color: var(--acc);
+}
+
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  bottom: calc(var(--nav-h) + env(safe-area-inset-bottom) + 20px);
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--acc);
+  color: #0f172a;
+  font-size: 28px;
+  border: none;
+  box-shadow: var(--shadow);
+  z-index: 100;
+  display: none;
+}
+
+.fab.show { display: flex; align-items: center; justify-content: center; }
+
+/* Weitere Styles folgen in späteren Versionen */
