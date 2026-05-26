@@ -1,10 +1,11 @@
 // ======================
-// WORKBASE - MAIN.JS (Vollversion)
+// WORKBASE - MAIN.JS (Verbindung aller Module)
 // ======================
 
-function toast(msg, error = false) {
-    alert(msg); // später schöner Toast
-}
+import './db.js';
+import './ui.js';
+import './dashboard.js';
+import './aufmass.js';
 
 let currentScreen = 'd';
 
@@ -20,45 +21,15 @@ function navTo(screen) {
     }
     target.classList.add('act');
 
-    document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
-    const active = document.querySelector(`.nb[data-s="${screen}"]`);
-    if (active) active.classList.add('on');
+    document.querySelectorAll('.nb').forEach(btn => btn.classList.remove('on'));
+    const activeBtn = document.querySelector(`.nb[data-s="${screen}"]`);
+    if (activeBtn) activeBtn.classList.add('on');
 
     currentScreen = screen;
 
-    if (screen === 'd') renderDashboard();
-    if (screen === 'am') renderAufmass();
-}
-
-function renderDashboard() {
-    const s = document.getElementById('s-d');
-    s.innerHTML = `
-        <div style="padding:20px;">
-            <h1>👋 Willkommen zurück</h1>
-            <div class="card" style="margin-top:20px;">
-                <h3>Heute</h3>
-                <p style="color:#94a3b8;">Noch keine Einträge</p>
-            </div>
-            <button onclick="navTo('am')" style="background:#38bdf8;color:#0f172a;padding:16px;border-radius:12px;border:none;width:100%;font-size:17px;margin-top:20px;">
-                📐 Neues Aufmass starten
-            </button>
-        </div>
-    `;
-}
-
-function renderAufmass() {
-    const s = document.getElementById('s-am');
-    s.innerHTML = `
-        <div style="padding:20px;">
-            <h1>📐 Aufmass Pro</h1>
-            <div class="card">
-                <p>Aufmass-Modul wird geladen...</p>
-                <button onclick="alert('Neuen Raum erstellen - kommt als Nächstes')" style="margin-top:15px;width:100%;padding:14px;background:#22c55e;color:white;border:none;border-radius:12px;">
-                    + Neuen Raum hinzufügen
-                </button>
-            </div>
-        </div>
-    `;
+    // Render entsprechendes Modul
+    if (screen === 'd' && typeof renderDashboard === 'function') renderDashboard();
+    if (screen === 'am' && typeof initAufmass === 'function') initAufmass();
 }
 
 function initNav() {
@@ -76,9 +47,10 @@ function initNav() {
     });
 }
 
-// Start
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
     initNav();
     navTo('d');
-    console.log('✅ Workbase - Vollversion gestartet');
-});
+    console.log('%c✅ Workbase modulare Version gestartet', 'color:#38bdf8; font-weight:bold');
+}
+
+document.addEventListener('DOMContentLoaded', initApp);
