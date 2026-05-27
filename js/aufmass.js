@@ -1,52 +1,62 @@
 // ======================
-// AUFMASS.JS - Erweiterte Version
+// AUFMASS.JS - Kernlogik (wird erweitert)
 // ======================
 
 let aufmassRaeume = [];
+
+function initAufmass() {
+    renderAufmassScreen();
+}
 
 function renderAufmassScreen() {
     const screen = document.getElementById('s-am');
     if (!screen) return;
 
-    let html = `
+    screen.innerHTML = `
+        <div class="ph">
+            <h1>Aufmass Pro</h1>
+        </div>
         <div style="padding:16px;">
-            <h1>📐 Aufmass Pro</h1>
-            <div class="card">
-                <button onclick="neuenRaum()" style="background:#22c55e;color:white;padding:16px;border-radius:12px;border:none;width:100%;margin-bottom:16px;">
-                    + Neuen Raum erfassen
-                </button>
-            </div>
+            <button onclick="neuenRaum()" class="btn" style="background:#22c55e;color:white;">+ Neuen Raum erfassen</button>
+            
+            <div id="raumListe"></div>
+        </div>
     `;
 
-    if (aufmassRaeume.length === 0) {
-        html += `<p style="text-align:center;color:#94a3b8;padding:40px 20px;">Noch keine Räume erfasst.</p>`;
-    } else {
-        html += aufmassRaeume.map(r => `
-            <div class="card">
-                <strong>${r.name}</strong><br>
-                <small style="color:#94a3b8">${r.flaeche ? r.flaeche + ' m²' : 'Noch keine Fläche'}</small>
-            </div>
-        `).join('');
-    }
-
-    html += `</div>`;
-    screen.innerHTML = html;
+    renderRaumListe();
 }
 
 function neuenRaum() {
-    const name = prompt("Raumname eingeben (z.B. Wohnzimmer, Bad, Fassade):");
-    if (name && name.trim() !== "") {
-        aufmassRaeume.push({
-            id: Date.now(),
-            name: name.trim(),
-            flaeche: 0,
-            datum: new Date()
-        });
-        alert("Raum '" + name + "' wurde hinzugefügt!");
-        renderAufmassScreen();
+    const name = prompt("Raumname (z.B. Wohnzimmer, Wand Nord):");
+    if (!name) return;
+
+    aufmassRaeume.push({
+        id: Date.now(),
+        name: name,
+        mode: "gesamt",
+        flaeche: 0
+    });
+
+    renderRaumListe();
+}
+
+function renderRaumListe() {
+    const list = document.getElementById('raumListe');
+    if (!list) return;
+
+    if (aufmassRaeume.length === 0) {
+        list.innerHTML = `<p style="text-align:center;color:#94a3b8;padding:40px;">Noch keine Räume</p>`;
+        return;
     }
+
+    list.innerHTML = aufmassRaeume.map(r => `
+        <div class="card">
+            <strong>${r.name}</strong><br>
+            <small style="color:#94a3b8">${r.flaeche ? r.flaeche + ' m²' : 'Noch keine Fläche berechnet'}</small>
+        </div>
+    `).join('');
 }
 
 // Export
-window.renderAufmassScreen = renderAufmassScreen;
+window.initAufmass = initAufmass;
 window.neuenRaum = neuenRaum;
