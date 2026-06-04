@@ -141,3 +141,13 @@ body {
     /* Hier kommen die Original-Styles aus deiner alten Datei */
     /* Ich füge sie schrittweise ein */
 }
+/* === AUFMASS-PRO CSS (Original) === */
+#s-am { color-scheme: dark; }
+
+.ph { position: sticky; top: 0; z-index: 30; background: var(--bg); padding: 16px 16px 12px; border-bottom: 1px solid var(--bdr); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.ph-left h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+
+.usw, .steps, .tabs, .card, .fg, .btn, .res-grid, .abz-card, .foto-slot, .rc, .row-item, .fas-seite, .ibox, .wbox, .vob-box, .lm-row, .abz-tbl, .rfoto-wrap { 
+    /* Deine Original-Styles werden hier schrittweise übernommen */
+    /* Für den Moment nutzen wir erstmal die Basis */
+}
