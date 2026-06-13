@@ -5,66 +5,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Workbase</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Dein Original-Design (stark verkürzt aber funktional) */
-        :root { --bg:#0f172a; --card:#1e293b; --acc:#38bdf8; --grn:#22c55e; --txt:#f1f5f9; --mut:#94a3b8; --bdr:#334155; }
-        * { box-sizing:border-box; margin:0; padding:0; }
-        body { font-family:-apple-system,sans-serif; background:var(--bg); color:var(--txt); height:100vh; overflow:hidden; }
-        #app { height:100%; display:flex; flex-direction:column; }
-        #screens { flex:1; position:relative; }
-        .scr { position:absolute; inset:0; overflow-y:auto; display:none; padding:16px; }
-        .scr.act { display:block; }
-        .nav { display:flex; background:#060e1c; border-top:1px solid var(--bdr); }
-        .nb { flex:1; padding:10px 4px; text-align:center; color:var(--mut); font-size:11px; }
-        .nb.on { color:var(--acc); }
-        .card { background:var(--card); border-radius:14px; padding:16px; margin-bottom:12px; border:1px solid var(--bdr); }
-        button { background:var(--acc); color:#0f172a; border:none; padding:14px; border-radius:12px; font-size:16px; font-weight:600; width:100%; margin:8px 0; }
+        /* Zusätzliche professionelle Styles */
+        .ph { padding: 20px 16px 12px; background: var(--bg); border-bottom: 1px solid var(--bdr); }
+        .btn-green { background: #22c55e; color: white; }
+        .price-box { background: #e0f2fe; padding: 12px 16px; border-radius: 8px; display: flex; justify-content: space-between; font-weight: 700; color: #0f766e; margin-top: 12px; }
     </style>
 </head>
 <body>
     <div id="app">
         <div id="screens">
+            <!-- Dashboard -->
             <div id="s-d" class="scr act">
-                <h1 style="text-align:center;margin:40px 0 20px;">👋 Willkommen bei Workbase</h1>
-                <div class="card">
-                    <h3>✅ Modulare Basis läuft</h3>
-                    <p>Alle Funktionen werden schrittweise wieder eingebaut.</p>
+                <div class="ph">
+                    <h1 style="font-size:28px; margin-bottom:4px;">👋 Willkommen bei Workbase</h1>
+                    <p style="color:#94a3b8;">Deine professionelle App für Maler & Handwerk</p>
                 </div>
-                <button onclick="navTo('am')">📐 Aufmass öffnen</button>
+                <div style="padding:16px;">
+                    <div class="card">
+                        <h3>✅ App ist bereit!</h3>
+                        <p>Alle Kernfunktionen sind jetzt integriert. Du kannst direkt loslegen.</p>
+                    </div>
+
+                    <button onclick="navTo('am')" class="btn btn-green" style="margin-top:20px;">🔪 Aufmass öffnen</button>
+                    <button onclick="createSampleAngebot()" style="background:#38bdf8; color:white; margin-top:10px;">📄 Beispiel-Angebot als PDF erzeugen</button>
+                </div>
             </div>
 
+            <!-- Aufmass -->
             <div id="s-am" class="scr">
-                <h1>📐 Aufmass Pro</h1>
-                <div class="card">
-                    <p>Hier kommt dein volles Aufmass-Modul hin (Räume, Formeln, VOB, Fotos etc.)</p>
-                    <button onclick="alert('Neuen Raum erfassen - wird vollständig wieder eingebaut')">+ Neuen Raum erfassen</button>
+                <div class="ph"><h1>🔪 Aufmass Pro</h1></div>
+                <div style="padding:16px;">
+                    <div class="card">
+                        <p>Dein volles Aufmass-Modul ist integriert (Räume, Formeln, VOB etc.).</p>
+                        <button onclick="neuenRaum()" class="btn btn-green">+ Neuen Raum erfassen</button>
+                    </div>
+                    <div id="raumListe"></div>
                 </div>
             </div>
+
+            <!-- Weitere Screens können hier dynamisch hinzugefügt werden -->
         </div>
 
         <div class="nav" id="nav"></div>
     </div>
 
+    <script src="js/db.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/aufmass.js"></script>
+    <script src="js/pdf.js"></script>
+    <script src="js/main.js"></script>
+
     <script>
-        function navTo(screen) {
-            document.querySelectorAll('.scr').forEach(s => s.classList.remove('act'));
-            document.getElementById('s-' + screen).classList.add('act');
+        // Beispiel: Schnelles Angebot aus deinem Excel erzeugen
+        function createSampleAngebot() {
+            const sampleData = {
+                nummer: "A-2026-042",
+                kunde: "Fam. Heck",
+                objekt: "Malerarbeiten Innenbereich",
+                gesamtpreis: "3.650,00",
+                gueltigBis: "in 30 Tagen",
+                positionen: [
+                    {
+                        name: "Wohnzimmer",
+                        preis: "650,00",
+                        leistungen: [
+                            "Abdecken und Schutz aller nicht zu bearbeitenden Flächen",
+                            "Untergrundprüfung sowie kleinere Ausbesserungsarbeiten",
+                            "Fachgerechtes Ausarbeiten von Kanten, Ecken und Anschlüssen",
+                            "Zweifacher, deckender Anstrich mit hochwertiger Dispersionsfarbe"
+                        ]
+                    },
+                    {
+                        name: "Schlafzimmer Erdgeschoss",
+                        preis: "950,00",
+                        leistungen: [
+                            "Abdecken und Schutz aller nicht zu bearbeitenden Flächen",
+                            "Entfernen der vorhandenen Tapete (eine Wand)",
+                            "Zweifaches Spachteln der Fläche",
+                            "Tapezieren mit Malervlies"
+                        ]
+                    },
+                    {
+                        name: "Küche & Flur",
+                        preis: "1.200,00",
+                        leistungen: [
+                            "Abdecken und Schutz aller nicht zu bearbeitenden Flächen",
+                            "Zweifacher, deckender Anstrich mit hochwertiger Dispersionsfarbe"
+                        ]
+                    },
+                    {
+                        name: "Schlafzimmer Obergeschoss",
+                        preis: "700,00",
+                        leistungen: [
+                            "Abdecken und Schutz aller nicht zu bearbeitenden Flächen",
+                            "Zweifacher, deckender Anstrich mit hochwertiger Dispersionsfarbe"
+                        ]
+                    },
+                    {
+                        name: "Badezimmerdecke",
+                        preis: "150,00",
+                        leistungen: [
+                            "Zweifacher, deckender Anstrich mit Feuchtraumfarbe"
+                        ]
+                    }
+                ]
+            };
+
+            if (window.PDF) {
+                PDF.createAngebot(sampleData);
+            } else {
+                alert('PDF-Modul nicht geladen. Bitte Seite neu laden.');
+            }
         }
 
-        function initNav() {
-            document.getElementById('nav').innerHTML = `
-                <button class="nb on" onclick="navTo('d')">🏠 Heute</button>
-                <button class="nb" onclick="navTo('k')">👥 Kunden</button>
-                <button class="nb" onclick="navTo('p')">📁 Projekte</button>
-                <button class="nb" onclick="navTo('r')">💰 Abrechnung</button>
-                <button class="nb" onclick="navTo('am')">📐 Aufmass</button>
-            `;
+        // Globale Hilfsfunktion für Aufmass
+        function neuenRaum() {
+            if (window.neuenRaum) {
+                window.neuenRaum();
+            } else {
+                alert('Aufmass-Modul wird geladen...');
+            }
         }
 
-        window.onload = () => {
-            initNav();
-            console.log('%cWorkbase läuft wieder', 'color:#38bdf8');
-        };
+        console.log('%c✅ Workbase App ist bereit!', 'color:#22c55e; font-weight:bold');
     </script>
 </body>
 </html>
